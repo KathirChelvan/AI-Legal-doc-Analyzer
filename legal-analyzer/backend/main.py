@@ -9,9 +9,13 @@ app = FastAPI(title="Legal Document Analyzer API")
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ai-legal-doc-analyzer.vercel.app/"],
+    allow_origins=[
+        "https://ai-legal-doc-analyzer.vercel.app",  # Remove trailing slash
+        "http://localhost:3000",  # For local development
+        "https://your-actual-frontend-domain.com"  # Add your real frontend URL
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
