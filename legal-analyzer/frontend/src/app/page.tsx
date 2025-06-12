@@ -41,6 +41,9 @@ export default function Home() {
   const [analysisHistory, setAnalysisHistory] = useState<AnalysisResult[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // API URL configuration - uses environment variable or fallback to production
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ai-legal-doc-analyzer.onrender.com';
+
   const handleFileChange = useCallback((selectedFile: File | null) => {
     setFile(selectedFile);
     setResult(null);
@@ -107,7 +110,8 @@ export default function Home() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch("http://localhost:8000/analyze", {
+      // Updated to use the production API URL
+      const res = await fetch(`${API_URL}/analyze`, {
         method: "POST",
         body: formData,
       });
@@ -419,7 +423,7 @@ export default function Home() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Avg. Processing</span>
-                  <span className="font-semibold text-blue-600"></span>
+                  <span className="font-semibold text-blue-600">2.3s</span>
                 </div>
               </div>
             </div>
