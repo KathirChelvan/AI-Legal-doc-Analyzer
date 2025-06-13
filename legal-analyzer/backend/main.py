@@ -49,7 +49,9 @@ async def analyze_document(file: UploadFile = File(...)):
             raise HTTPException(status_code=400, detail="No text could be extracted from the file.")
         
         # Analyze with LLM
-        analysis = analyze_legal_document(text)
+        analysis = "This is a test summary. Your document was processed successfully."
+
+        print("LLM returned:", analysis)
         
         return {
             "filename": file.filename,
