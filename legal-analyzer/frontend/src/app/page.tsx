@@ -124,6 +124,12 @@ export default function Home() {
         throw new Error(errorData.detail || 'Analysis failed');
       }
 
+            // ✅ Add this defensive check:
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Invalid response from server");
+      }
+      
       const data = await res.json();
       setResult(data);
       setAnalysisHistory(prev => [data, ...prev.slice(0, 4)]); // Keep last 5 analyses
