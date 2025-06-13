@@ -10,8 +10,9 @@ app = FastAPI(title="Legal Document Analyzer API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://ai-legal-doc-analyzer.vercel.app",  # Replace with your exact URL
-        "https://ai-legal-doc-analyzer-7zjk1hbah-kathirchelvans-projects.vercel.app/",  # Add your real URL here
+          # Replace with your exact URL
+        "https://ai-legal-doc-analyzer-7zjk1hbah-kathirchelvans-projects.vercel.app",
+        "https://ai-legal-doc-analyzer.vercel.app"# Add your real URL here
         "http://localhost:3000",  # Keep for local development
         "https://localhost:3000"   # Keep for local HTTPS development
     ],
