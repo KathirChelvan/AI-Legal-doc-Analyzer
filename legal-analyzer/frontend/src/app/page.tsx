@@ -30,6 +30,7 @@ interface FilePreview {
   lastModified: number;
 }
 
+
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<FilePreview | null>(null);
@@ -40,9 +41,6 @@ export default function Home() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [analysisHistory, setAnalysisHistory] = useState<AnalysisResult[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // API URL configuration - uses environment variable or fallback to production
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ai-legal-doc-analyzer.onrender.com';
 
   const handleFileChange = useCallback((selectedFile: File | null) => {
     setFile(selectedFile);
@@ -110,8 +108,7 @@ export default function Home() {
       const formData = new FormData();
       formData.append("file", file);
 
-      // Updated to use the production API URL
-      const res = await fetch(`${API_URL}/analyze`, {
+      const res = await fetch("http://localhost:8000/analyze", {
         method: "POST",
         body: formData,
       });
@@ -124,12 +121,6 @@ export default function Home() {
         throw new Error(errorData.detail || 'Analysis failed');
       }
 
-            // ✅ Add this defensive check:
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Invalid response from server");
-      }
-      
       const data = await res.json();
       setResult(data);
       setAnalysisHistory(prev => [data, ...prev.slice(0, 4)]); // Keep last 5 analyses
@@ -429,7 +420,7 @@ export default function Home() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Avg. Processing</span>
-                  <span className="font-semibold text-blue-600">2.3s</span>
+                  <span className="font-semibold text-blue-600"></span>
                 </div>
               </div>
             </div>
